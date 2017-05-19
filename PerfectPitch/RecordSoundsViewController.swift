@@ -78,6 +78,8 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         
     }
     
+    // MARK: - Segue
+    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
             performSegue(withIdentifier: "stopRecording", sender: audioRecorder.url)
@@ -87,13 +89,9 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // We check if this is the segue we want it to pass
         if segue.identifier == "stopRecording" {
-            // We grab the viewController to the destination with a forced outcast
             let playSoundsVC = segue.destination as! PlaySoundsViewController
-            // We grab the sender, if we go back and check where we recorded the sender we can confirm so in the performSegue
             let recordedAudioURL = sender as! URL
-            // We set the recorded URL in the playSoundsVC. We are now ready for playback
             playSoundsVC.recordedAudioURL = recordedAudioURL
         
         }
